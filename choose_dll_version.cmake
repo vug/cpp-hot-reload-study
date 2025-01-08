@@ -1,0 +1,33 @@
+if(EXISTS ${DLL_A})
+    set(HAS_DLL_A 1)
+else()
+    set(HAS_DLL_A 0)
+endif()
+
+if(EXISTS ${DLL_B})
+    set(HAS_DLL_B 1)
+else()
+    set(HAS_DLL_B 0)
+endif()
+
+if (NOT HAS_DLL_A)
+    set(DLL_TO_COPY ${DLL_A})
+elseif(HAS_DLL_A AND NOT HAS_DLL_B)
+    set(DLL_TO_COPY ${DLL_B})
+elseif(HAS_DLL_A AND HAS_DLL_B AND ${DLL_A} IS_NEWER_THAN ${DLL_B})
+    set(DLL_TO_COPY ${DLL_B})
+elseif(HAS_DLL_A AND HAS_DLL_B AND ${DLL_B} IS_NEWER_THAN ${DLL_A})
+    set(DLL_TO_COPY ${DLL_A})
+endif()
+
+message("Hi from script 1!")
+message("DLL_A ${DLL_A}")
+message("DLL_B ${DLL_B}")
+message("DLL_TMP ${DLL_TMP}")
+message("HAS_DLL_A ${HAS_DLL_A}")
+message("HAS_DLL_B ${HAS_DLL_B}")
+message("DLL_TO_COPY ${DLL_TO_COPY}")
+
+file(WRITE "${CMAKE_BINARY_DIR}/dll_to_copy.txt" "${DLL_TO_COPY}")
+
+message("Bye from script 1!")

@@ -20,14 +20,7 @@ elseif(HAS_DLL_A AND HAS_DLL_B AND ${DLL_B} IS_NEWER_THAN ${DLL_A})
     set(DLL_TO_COPY ${DLL_A})
 endif()
 
-message("Hi from script 1!")
-message("DLL_A ${DLL_A}")
-message("DLL_B ${DLL_B}")
-message("DLL_TMP ${DLL_TMP}")
 message("HAS_DLL_A ${HAS_DLL_A}")
 message("HAS_DLL_B ${HAS_DLL_B}")
 message("DLL_TO_COPY ${DLL_TO_COPY}")
-
-file(WRITE "${CMAKE_BINARY_DIR}/dll_to_copy.txt" "${DLL_TO_COPY}")
-
-message("Bye from script 1!")
+file(COPY_FILE ${DLL_TMP} ${DLL_TO_COPY})
